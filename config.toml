@@ -1,4 +1,4 @@
 theme = "tale-hugo"
-baseURL = "http://example.org/"
+baseURL = "https://dreamy-davinci-7b0054.netlify.com"
 languageCode = "en-us"
 title = "Dataasana"
