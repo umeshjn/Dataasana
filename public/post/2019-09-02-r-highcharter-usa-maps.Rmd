@@ -1,0 +1,91 @@
+---
+title: "World Map using Highcharter - World Population"
+author: "Dataasana"
+date: 2019-09-03
+categories: ["R"]
+tags: ["R Markdown", "dataviz", "highcharter", "Map"]
+output:
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(highcharter)
+library(tidyverse)
+library(janitor)
+library(widgetframe)
+library(DT)
+library(viridis)
+
+```
+
+Maps are wonderful visualization type for showing representing the geograhical information. I think after the bar plots, maps are the most commonly used and easily understood visualization type. 
+
+Highcharter R package provides us with very easy way of creating amazing maps. In this post we are going to learn how to create maps using this wonderful package.
+
+> Maps are used for plotting geographical data which provides more insights than using plain simple barplots or other visualizations.
+
+<br>
+
+Below are the important attributes required for creating the maps using highcharter package.
+
+1. Geographical attribute - Country, state or county. This attribute ideally should map with one of the keys in the map data which highcharter provides for creating maps.
+2. Numerical attribute corresponding to the gropgrahical attribute - Population, Mortality rate, GDP, etc
+
+
+Just to make it easier to follow and learn, we are going to use the population dataset which is available in R. We are going to use the population of countries for 2013. Below is the sample view of the datset.
+
+
+```{r}
+
+dt <- DT::datatable(population[population$year==2013,])
+frameWidget(dt , height = 350)
+
+```
+
+<br>
+
+Highcharter provides us with huge collection of maps which we can create just with one line of code. 
+
+
+```{r}
+
+h1 <- hcmap("custom/world-highres")
+frameWidget(h1)
+
+```
+
+<br>
+
+Now all we have to do is map the population of the countries on this map. 
+
+
+```{r}
+
+h1 <- hcmap("custom/world-highres", 
+            data = population[population$year==2013,], 
+            value = "population",
+            joinBy = c("name", "country"))
+
+frameWidget(h1)
+
+```
+
+<br>
+
+Above map is created using the default colors. We can always change the color using the 
+```{r}
+
+h1 <- hcmap("custom/world-highres", 
+            data = population[population$year==2013,], 
+            value = "population",
+            joinBy = c("name", "country")) %>%
+      hc_colorAxis(stops = color_stops(10, rev(inferno(10))))
+
+frameWidget(h1)
+
+```
+
+

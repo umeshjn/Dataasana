@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1567657265520.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2793959911",
+    "id" : "8FD96FB5",
+    "lastKnownWriteTime" : 1567657825,
+    "last_content_update" : 1567657825115,
+    "path" : "C:/UmeshJN/Personal/Website/2019/TaleTheme/content/post/2019-09-02-r-highcharter-usa-maps.Rmd",
+    "project_path" : "content/post/2019-09-02-r-highcharter-usa-maps.Rmd",
+    "properties" : {
+        "chunk_output_type" : "console",
+        "cursorPosition" : "2,18",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

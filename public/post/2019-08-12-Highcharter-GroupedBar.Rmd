@@ -1,0 +1,106 @@
+---
+title: "Grouped Bar Plots using Highcharter"
+author: "Data Yoga"
+date: 2019-08-12
+tags:
+- RMarkdown
+- highcharter
+- dataviz
+categories: R
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(highcharter)
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(widgetframe)
+
+data <- read_excel("../data/DU0156_holdings_2019-08-12.xlsx", skip = 9, n_max = 19)
+data <- clean_names(dat = data) %>%
+        mutate(holdings_buy_value = as.integer(holdings_buy_value),
+               current_value = as.integer(current_value),
+               unrealized_p_l_percent = as.integer(unrealized_p_l_percent))
+
+plot1 <- data %>%
+        select(1,7,9) %>%
+        gather(key = "Category", value = "Value", -symbol) %>%
+        mutate(Value = as.integer(Value))
+```
+
+Bar plots are used for plotting the categorical variables distribution in the dataset with respect to count or based on summary of quantitative variable. Grouped bar plots is used specially when there are two categorical variables which we want to view the distribution.
+
+For example:
+Buying price and current price of different stocks in the portfolio.
+
+We are going to use the below mentioned dataset for plotting the grouped bar chart. Here we have the actual investment and the current value of the investment in different stocks in Indian stock market.
+
+<br>
+
+```{r}
+
+dt <- DT::datatable(plot1)
+
+frameWidget(dt , height = 350)
+
+```
+
+<br>
+
+This dataset had two categorical variables which is "symbol" and "Category" which we are interested in. Below plot is created using highcharter which is one of the most amazing visualization library in R, which helps us in created highly interactive plots.
+
+
+Just one line of code helps you create a beautiful plot like the below.
+
+<br>
+
+```{r }
+
+h1 <- hchart(plot1, "column", hcaes(x = symbol, y = Value, group = Category))
+
+frameWidget(h1)
+
+```
+
+
+Color of the bars in the above plot are the default colors. If you dont like the default colors, the next thing we should to learn is how do we change the color of the plots.
+
+
+> Color of the bar can be changed using the hc_color() method by passing the right vector of colors.
+
+
+```{r}
+
+
+h1 <- hchart(plot1, "column", hcaes(x = symbol, y = Value, group = Category)) %>%
+  hc_colors(colors = c("darkgrey", "darkblue")) 
+
+frameWidget(h1)
+
+
+```
+
+<br>
+
+Once you have designed your own plot how do you add your signature to your plot or they call it as caption.
+
+> hc_credit() method allows you add your signature to your plot. 
+
+<br>
+
+```{r}
+
+h1 <- hchart(plot1, "column", hcaes(x = symbol, y = Value, group = Category)) %>%
+  hc_colors(colors = c("darkgrey", "darkblue")) %>%
+  hc_credits(enabled = TRUE, text = "Designed by Dataasana")
+
+frameWidget(h1)
+
+```
+
+<br>
+
+
+These are highly interactive plots and as you saw super easy to create. Hope this encourages you to learn the highcharter package.

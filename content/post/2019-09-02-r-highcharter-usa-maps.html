@@ -1,0 +1,59 @@
+---
+title: "World Map using Highcharter - World Population"
+author: "Dataasana"
+date: 2019-09-03
+categories: ["R"]
+tags: ["R Markdown", "dataviz", "highcharter", "Map"]
+output:
+  html_document:
+    code_folding: hide
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+
+<p>Maps are wonderful visualization type for showing representing the geograhical information. I think after the bar plots, maps are the most commonly used and easily understood visualization type.</p>
+<p>Highcharter R package provides us with very easy way of creating amazing maps. In this post we are going to learn how to create maps using this wonderful package.</p>
+<blockquote>
+<p>Maps are used for plotting geographical data which provides more insights than using plain simple barplots or other visualizations.</p>
+</blockquote>
+<p><br></p>
+<p>Below are the important attributes required for creating the maps using highcharter package.</p>
+<ol style="list-style-type: decimal">
+<li>Geographical attribute - Country, state or county. This attribute ideally should map with one of the keys in the map data which highcharter provides for creating maps.</li>
+<li>Numerical attribute corresponding to the gropgrahical attribute - Population, Mortality rate, GDP, etc</li>
+</ol>
+<p>Just to make it easier to follow and learn, we are going to use the population dataset which is available in R. We are going to use the population of countries for 2013. Below is the sample view of the datset.</p>
+<pre class="r"><code>dt &lt;- DT::datatable(population[population$year==2013,])
+frameWidget(dt , height = 350)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:350px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2019-09-02-r-highcharter-usa-maps_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>Highcharter provides us with huge collection of maps which we can create just with one line of code.</p>
+<pre class="r"><code>h1 &lt;- hcmap(&quot;custom/world-highres&quot;)
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-2" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/post/2019-09-02-r-highcharter-usa-maps_files/figure-html//widgets/widget_unnamed-chunk-2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>Now all we have to do is map the population of the countries on this map.</p>
+<pre class="r"><code>h1 &lt;- hcmap(&quot;custom/world-highres&quot;, 
+            data = population[population$year==2013,], 
+            value = &quot;population&quot;,
+            joinBy = c(&quot;name&quot;, &quot;country&quot;))
+
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-3" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"url":"/post/2019-09-02-r-highcharter-usa-maps_files/figure-html//widgets/widget_unnamed-chunk-3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>Above map is created using the default colors. We can always change the color using the</p>
+<pre class="r"><code>h1 &lt;- hcmap(&quot;custom/world-highres&quot;, 
+            data = population[population$year==2013,], 
+            value = &quot;population&quot;,
+            joinBy = c(&quot;name&quot;, &quot;country&quot;)) %&gt;%
+      hc_colorAxis(stops = color_stops(10, rev(inferno(10))))
+
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-4" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"url":"/post/2019-09-02-r-highcharter-usa-maps_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>

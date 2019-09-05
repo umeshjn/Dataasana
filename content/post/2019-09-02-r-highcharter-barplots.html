@@ -1,0 +1,59 @@
+---
+title: "Barplots using Highcharter"
+author: "Dataasana"
+date: 2019-09-02
+categories: ["R"]
+tags: ["R Markdown", "dataviz", "highcharter"]
+output:
+  html_document:
+    code_folding: hide
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+
+<p>Bar plots are used for plotting the categorical variables distribution in the dataset with respect to count or based on summary of quantitative variable. Grouped bar plots is used specially when there are two categorical variables which we want to view the distribution.</p>
+<p>For example:
+Buying price and current price of different stocks in the portfolio.</p>
+<p>We are going to use the below mentioned dataset for plotting the grouped bar chart. Here we have the actual investment and the current value of the investment in different stocks in Indian stock market.</p>
+<p><br></p>
+<pre class="r"><code>dt &lt;- DT::datatable(plot1)
+
+frameWidget(dt , height = 350)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:350px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2019-09-02-r-highcharter-barplots_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>This dataset had two categorical variables which is “symbol” and “Category” which we are interested in. Below plot is created using highcharter which is one of the most amazing visualization library in R, which helps us in created highly interactive plots.</p>
+<p>Just one line of code helps you create a beautiful plot like the below.</p>
+<p><br></p>
+<pre class="r"><code>h1 &lt;- hchart(plot1, &quot;column&quot;, hcaes(x = symbol, y = Value, group = Category))
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-2" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/post/2019-09-02-r-highcharter-barplots_files/figure-html//widgets/widget_unnamed-chunk-2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Color of the bars in the above plot are the default colors. If you dont like the default colors, the next thing we should to learn is how do we change the color of the plots.</p>
+<blockquote>
+<p>Color of the bar can be changed using the hc_color() method by passing the right vector of colors.</p>
+</blockquote>
+<pre class="r"><code>h1 &lt;- hchart(plot1, &quot;column&quot;, hcaes(x = symbol, y = Value, group = Category)) %&gt;%
+  hc_colors(colors = c(&quot;darkgrey&quot;, &quot;darkblue&quot;)) 
+
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-3" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"url":"/post/2019-09-02-r-highcharter-barplots_files/figure-html//widgets/widget_unnamed-chunk-3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>Once you have designed your own plot how do you add your signature to your plot or they call it as caption.</p>
+<blockquote>
+<p>hc_credit() method allows you add your signature to your plot.</p>
+</blockquote>
+<p><br></p>
+<pre class="r"><code>h1 &lt;- hchart(plot1, &quot;column&quot;, hcaes(x = symbol, y = Value, group = Category)) %&gt;%
+  hc_colors(colors = c(&quot;darkgrey&quot;, &quot;darkblue&quot;)) %&gt;%
+  hc_credits(enabled = TRUE, text = &quot;Designed by Dataasana&quot;) 
+
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-4" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"url":"/post/2019-09-02-r-highcharter-barplots_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>These are highly interactive plots and as you saw super easy to create. Hope this encourages you to learn the highcharter package.</p>

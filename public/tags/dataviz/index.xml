@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dataviz on Dataasana</title>
+    <link>/tags/dataviz/</link>
+    <description>Recent content in dataviz on Dataasana</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/dataviz/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>World Map using Highcharter - World Population</title>
+      <link>/post/2019-09-02-r-highcharter-usa-maps/</link>
+      <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-09-02-r-highcharter-usa-maps/</guid>
+      <description>Maps are wonderful visualization type for showing representing the geograhical information. I think after the bar plots, maps are the most commonly used and easily understood visualization type.
+Highcharter R package provides us with very easy way of creating amazing maps. In this post we are going to learn how to create maps using this wonderful package.
+Maps are used for plotting geographical data which provides more insights than using plain simple barplots or other visualizations.</description>
+    </item>
+    
+    <item>
+      <title>Barplots using Highcharter</title>
+      <link>/post/2019-09-02-r-highcharter-barplots/</link>
+      <pubDate>Mon, 02 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-09-02-r-highcharter-barplots/</guid>
+      <description>Bar plots are used for plotting the categorical variables distribution in the dataset with respect to count or based on summary of quantitative variable. Grouped bar plots is used specially when there are two categorical variables which we want to view the distribution.
+For example:Buying price and current price of different stocks in the portfolio.
+We are going to use the below mentioned dataset for plotting the grouped bar chart.</description>
+    </item>
+    
+  </channel>
+</rss>

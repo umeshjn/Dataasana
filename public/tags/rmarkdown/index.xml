@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RMarkdown on Dataasana</title>
+    <link>/tags/rmarkdown/</link>
+    <description>Recent content in RMarkdown on Dataasana</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 12 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rmarkdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Grouped Bar Plots using Highcharter</title>
+      <link>/post/2019-08-12-highcharter-groupedbar/</link>
+      <pubDate>Mon, 12 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-08-12-highcharter-groupedbar/</guid>
+      <description>Bar plots are used for plotting the categorical variables distribution in the dataset with respect to count or based on summary of quantitative variable. Grouped bar plots is used specially when there are two categorical variables which we want to view the distribution.
+For example:Buying price and current price of different stocks in the portfolio.
+We are going to use the below mentioned dataset for plotting the grouped bar chart.</description>
+    </item>
+    
+  </channel>
+</rss>

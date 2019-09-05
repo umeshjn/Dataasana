@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Grouped Bar Plots using Highcharter &middot; Dataasana</title>
+
+		
+  		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Dataasana" />
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Dataasana</h2>
+				</a>
+				<ul>
+    <li><a href="/about">About</a></li>
+    <li><a href="/">Posts</a></li>
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+        Data Yoga
+        <br>
+        <span>on&nbsp;</span><time datetime="2019-08-12 00:00:00 &#43;0000 UTC">August 12, 2019</time>
+</div>
+		<h1 class="post-title">Grouped Bar Plots using Highcharter</h1>
+<div class="post-line"></div>
+
+		
+
+		
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+
+<p>Bar plots are used for plotting the categorical variables distribution in the dataset with respect to count or based on summary of quantitative variable. Grouped bar plots is used specially when there are two categorical variables which we want to view the distribution.</p>
+<p>For example:
+Buying price and current price of different stocks in the portfolio.</p>
+<p>We are going to use the below mentioned dataset for plotting the grouped bar chart. Here we have the actual investment and the current value of the investment in different stocks in Indian stock market.</p>
+<p><br></p>
+<pre class="r"><code>dt &lt;- DT::datatable(plot1)
+
+frameWidget(dt , height = 350)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:350px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2019-08-12-Highcharter-GroupedBar_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>This dataset had two categorical variables which is “symbol” and “Category” which we are interested in. Below plot is created using highcharter which is one of the most amazing visualization library in R, which helps us in created highly interactive plots.</p>
+<p>Just one line of code helps you create a beautiful plot like the below.</p>
+<p><br></p>
+<pre class="r"><code>h1 &lt;- hchart(plot1, &quot;column&quot;, hcaes(x = symbol, y = Value, group = Category))
+
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-2" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/post/2019-08-12-Highcharter-GroupedBar_files/figure-html//widgets/widget_unnamed-chunk-2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Color of the bars in the above plot are the default colors. If you dont like the default colors, the next thing we should to learn is how do we change the color of the plots.</p>
+<blockquote>
+<p>Color of the bar can be changed using the hc_color() method by passing the right vector of colors.</p>
+</blockquote>
+<pre class="r"><code>h1 &lt;- hchart(plot1, &quot;column&quot;, hcaes(x = symbol, y = Value, group = Category)) %&gt;%
+  hc_colors(colors = c(&quot;darkgrey&quot;, &quot;darkblue&quot;)) 
+
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-3" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"url":"/post/2019-08-12-Highcharter-GroupedBar_files/figure-html//widgets/widget_unnamed-chunk-3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>Once you have designed your own plot how do you add your signature to your plot or they call it as caption.</p>
+<blockquote>
+<p>hc_credit() method allows you add your signature to your plot.</p>
+</blockquote>
+<p><br></p>
+<pre class="r"><code>h1 &lt;- hchart(plot1, &quot;column&quot;, hcaes(x = symbol, y = Value, group = Category)) %&gt;%
+  hc_colors(colors = c(&quot;darkgrey&quot;, &quot;darkblue&quot;)) %&gt;%
+  hc_credits(enabled = TRUE, text = &quot;Designed by Dataasana&quot;)
+
+frameWidget(h1)</code></pre>
+<div id="htmlwidget-4" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"url":"/post/2019-08-12-Highcharter-GroupedBar_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<p>These are highly interactive plots and as you saw super easy to create. Hope this encourages you to learn the highcharter package.</p>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/post/2015-07-23-r-rmarkdown/" class="left arrow">&#8592;</a>
+		<a href="/post/2019-09-02-r-highcharter-usa-maps/" class="right arrow">&#8594;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			<span>
+			&copy; <time datetime="2019-09-04 22:36:06.929391 -0500 CDT m=&#43;0.250011201">2019</time> . Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>
