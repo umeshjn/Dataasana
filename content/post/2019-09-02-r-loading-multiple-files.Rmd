@@ -48,7 +48,7 @@ This is the best option as it takes the least amount of time to read. 4GB of dat
 
 <br>
 
-> data <- bind_rows(lapply(list.files(pattern = "*.csv"), read.csv))
+> data <- bind_rows(lapply(list.files(pattern = "*.csv"), fread))
 
 
 <br>
