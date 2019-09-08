@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tidbit on Dataasana</title>
+    <link>/tags/tidbit/</link>
+    <description>Recent content in tidbit on Dataasana</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 05 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/tidbit/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Loading Multiple Files into a DataFrame</title>
+      <link>/post/2019-09-02-r-loading-multiple-files/</link>
+      <pubDate>Thu, 05 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-09-02-r-loading-multiple-files/</guid>
+      <description>This is a quick tidbit for showing how we can load multiple files with the same structure in a folder into a dataframe.
+You can either read all the files separately and bind them together into one single dataframe using bind_rows() or you can do this with one line of code using one of the options below.
+
+Option 1This is one of the slowest optiondata &amp;lt;- bind_rows(lapply(list.</description>
+    </item>
+    
+  </channel>
+</rss>

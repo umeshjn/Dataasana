@@ -1,0 +1,42 @@
+---
+title: "Loading Multiple Files into a DataFrame"
+author: "Dataasana"
+date: 2019-09-05
+categories: ["R"]
+tags: ["tidbit"]
+output:
+  html_document:
+    code_folding: hide
+---
+
+
+
+<p>This is a quick tidbit for showing how we can load multiple files with the same structure in a folder into a dataframe.</p>
+<p>You can either read all the files separately and bind them together into one single dataframe using bind_rows() or you can do this with one line of code using one of the options below.</p>
+<p><br></p>
+<div id="option-1" class="section level3">
+<h3>Option 1</h3>
+<p>This is one of the slowest option
+<br></p>
+<blockquote>
+<p>data &lt;- bind_rows(lapply(list.files(pattern = "*.csv"), read.csv))</p>
+</blockquote>
+</div>
+<div id="option-2" class="section level3">
+<h3>Option 2</h3>
+<p>This is one of the second best option in terms of speed</p>
+<p><br></p>
+<blockquote>
+<p>data &lt;- bind_rows(lapply(list.files(pattern = "*.csv“), read_delim, delim =”,"))</p>
+</blockquote>
+</div>
+<div id="option-3" class="section level3">
+<h3>Option 3</h3>
+<p>This is the best option as it takes the least amount of time to read. 4GB of data took less than 30 seconds.</p>
+<p><br></p>
+<blockquote>
+<p>data &lt;- bind_rows(lapply(list.files(pattern = "*.csv"), read.csv))</p>
+</blockquote>
+<p><br></p>
+<p>Remember the speed of these options mentioned is based on my local system testing.</p>
+</div>

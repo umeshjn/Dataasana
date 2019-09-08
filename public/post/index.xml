@@ -6,10 +6,22 @@
     <description>Recent content in Posts on Dataasana</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 05 Sep 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Loading Multiple Files into a DataFrame</title>
+      <link>/post/2019-09-02-r-loading-multiple-files/</link>
+      <pubDate>Thu, 05 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-09-02-r-loading-multiple-files/</guid>
+      <description>This is a quick tidbit for showing how we can load multiple files with the same structure in a folder into a dataframe.
+You can either read all the files separately and bind them together into one single dataframe using bind_rows() or you can do this with one line of code using one of the options below.
+
+Option 1This is one of the slowest optiondata &amp;lt;- bind_rows(lapply(list.</description>
+    </item>
     
     <item>
       <title>World Map using Highcharter - World Population</title>
