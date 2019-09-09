@@ -1,0 +1,158 @@
+---
+title: "Working with Dates - Part I"
+author: "Dataasana"
+date: 2019-09-08
+categories: ["R"]
+tags: ["lubridate", "dates"]
+output:
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE, fig.width = 6, fig.height = 5}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(highcharter)
+library(widgetframe)
+library(DT)
+
+```
+
+
+Working with dates and time is one of the important skills for a data science engineer. Lot of the datasets which we get to work on will have date attribute. Lubridate package in R is really powerful and very easy to use. Mastering this package gives you the weapon which you can use to work with date and times with ease.
+
+This is first blog on using lubridate package. We are going to learn most basic features which most of us use while working with date attributes.
+
+I am going to use the Apple stock daily dataset for this blog. 
+
+
+<br>
+
+```{r}
+
+apple <- read.csv("../data/AAPL.csv", stringsAsFactors = FALSE)
+
+datatable(apple[1:100, c(1,5,7)])
+
+```
+
+
+<br>
+
+If you try to plot of this stock prices using timeseries plot, it wont work because the column type of the 'Date' attribute is string/character. I have used the read.csv method to read the file. Using read_csv will not have this issue, I have purposefully use read.csv to show how to work with date column when it is a string.
+
+Try plotting the Date column using highcharter, below is the plot you see. If you observe the x axis you see that every date is mentioned because they are treated as individual values of the series of date.
+
+<br>
+
+```{r}
+
+hchart(apple, "line", hcaes(Date, Close))
+
+```
+
+<br>
+
+Now if you want to fix this plot, you have to convert this column into date type and then plot again.
+
+<br>
+
+```{r}
+
+hchart(apple, "line", hcaes(as.Date(Date), Close))
+
+```
+
+
+Let us say you want to view the volume of the stock on yearly basis, how would you do it? We have to separate the year from the date attribute. 
+
+> Lubridate provides a function called "year" which helps us to pull the year value from the date attribute.
+
+
+We are going to pull this and add as a new attribute to the dataset which then we will use it for plotting the yearly volume.
+
+```{r}
+
+apple$Year <- as.factor(year(apple$Date))
+
+yearly <- apple %>%
+  group_by(Year) %>%
+  summarise(Total_Volume = sum(as.numeric(Volume)))
+
+datatable(apple[1:100, c(1,5,7:8)])
+
+```
+
+<br>
+
+
+```{r}
+
+hchart(yearly, "bar", hcaes(Year, Total_Volume))
+
+```
+
+
+<br>
+
+Now we have the year, let us pull out the month and day as well into separate columns.
+
+
+> month() and day() allow us to pull the month and day values from dates respectively.
+
+<br>
+
+
+```{r}
+
+apple <- apple %>%
+  mutate(Day = day(Date),
+         Month = month(Date))
+
+datatable(apple[1:100, c(1,5,7:10)])
+
+```
+
+
+> It would be great if we can get the month names instead of the numbers, which is very easy by just passing in the label parameter to month().
+
+<br>
+
+```{r}
+
+apple <- apple %>%
+  mutate(Day = day(Date),
+         Month = month(Date, label = TRUE))
+
+datatable(apple[1:100, c(1,5,7:10)])
+
+```
+
+
+<br>
+
+We will finish off this with plotting the volume based on the months.
+
+<br>
+
+```{r}
+
+monthly <- apple %>%
+  group_by(Month) %>%
+  summarise(Total_Volume = sum(as.numeric(Volume)))
+
+hchart(monthly, "bar", hcaes(Month, Total_Volume))
+
+```
+
+<br>
+
+### Summary of what we learnt in this post
+
+* Converting the strings into Date 
+* Using Lubridate to get the year from Date column
+* Using Lubridate to get the month and also month names from Date column
+* Using Lubridate to get the day from Date column 
+* I guess we did learn making few plots. 

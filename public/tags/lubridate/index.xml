@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lubridate on Dataasana</title>
+    <link>/tags/lubridate/</link>
+    <description>Recent content in lubridate on Dataasana</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/lubridate/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Working with Dates - Part I</title>
+      <link>/post/2019-09-08-lubridate-1/</link>
+      <pubDate>Sun, 08 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-09-08-lubridate-1/</guid>
+      <description>Working with dates and time is one of the important skills for a data science engineer. Lot of the datasets which we get to work on will have date attribute.</description>
+    </item>
+    
+  </channel>
+</rss>
