@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DataStory on Dataasana</title>
+    <link>/categories/datastory/</link>
+    <description>Recent content in DataStory on Dataasana</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 Oct 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/datastory/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nifty Small Cap 250 - Stocks Performance</title>
+      <link>/post/2019-10-21-nifty-smallcap-story/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-10-21-nifty-smallcap-story/</guid>
+      <description>Indian stock market is in huge turmoil for last 18 to 20 months. Investors have seen lot of wealth erosion. As per majority of the super investors, they have never seen wealth erosion of this magnitude in history.</description>
+    </item>
+    
+  </channel>
+</rss>
