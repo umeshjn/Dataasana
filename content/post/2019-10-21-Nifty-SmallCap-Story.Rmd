@@ -7,8 +7,6 @@ tags: ["DataStory"]
 output:
   html_document:
     code_folding: hide
-editor_options: 
-  chunk_output_type: console
 ---
 
 Indian stock market is in huge turmoil for last 18 to 20 months. Investors have seen lot of wealth erosion. As per majority of the super investors, they have never seen wealth erosion of this magnitude in history. There have been lot of news reports floating around in major business news outlets that are spreading panic among the investor community, specially about the mid cap and small cap investing. Being a investor myself, I wanted to look at the performance of the stocks in small cap market for the last one year. I have picked the SmallCap 250 Index components. Out of 250 stocks there are 93 stocks which have given positive returns in last one year and 156 stocks have given negative returns. This really does not sound like end of the tunnel for small cap investors or is there something hidden inside this data?
