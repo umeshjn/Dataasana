@@ -1,0 +1,132 @@
+---
+title: "Nifty Small Cap 250 - Stocks Performance"
+author: "Dataasana"
+date: 2019-10-21
+categories: ["R", "DataStory"]
+tags: ["DataStory"]
+output:
+  html_document:
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
+---
+
+Indian stock market is in huge turmoil for last 18 to 20 months. Investors have seen lot of wealth erosion. As per majority of the super investors, they have never seen wealth erosion of this magnitude in history. There have been lot of news reports floating around in major business news outlets that are spreading panic among the investor community, specially about the mid cap and small cap investing. Being a investor myself, I wanted to look at the performance of the stocks in small cap market for the last one year. I have picked the SmallCap 250 Index components. Out of 250 stocks there are 93 stocks which have given positive returns in last one year and 156 stocks have given negative returns. This really does not sound like end of the tunnel for small cap investors or is there something hidden inside this data?
+
+<br>
+
+> NIFTY Smallcap 250 represents 250 companies (companies ranked 251-500) from NIFTY 500. This index intends to measure the performance of small market capitalisation companies. 5 Stocks have lost more than 90% while 7 stocks have gained more than 70% in last one year.
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(readxl)
+library(highcharter)
+
+smallcap <- read_excel("Nifty Smallcap 250 Components.xlsx") 
+smallcap <- smallcap %>% 
+            clean_names()
+
+smallcap1Year <- smallcap %>% 
+                 select(1,2,7)  %>% 
+                 replace(is.na(.), 0) %>% 
+                 mutate(x1_year =  as.double(x1_year) * 100) %>%
+                 drop_na()
+
+smallcap1Year$Bucket <- cut(
+  smallcap1Year$x1_year,
+  breaks = c(-99, -90, -70, -50, -25, 0, 25, 50, 75, 100, 125, 160),
+  labels = c("-99 to -90 %", "-90 to -70 %", "-70 to -50 %", "-50 to -25 %", "-25 to 0 %", "0 to 25 %",  "25 to 50 %", "50 to 75 %",  "75 to 100 %", "100 to 125 %",  "125 to 160 %"),
+  right  = FALSE
+)
+
+```
+
+
+<br>
+
+```{r}
+
+hchart(smallcap1Year$Bucket, color = "#590307") %>%
+  hc_title(text = "Nifty SmallCap 250 Index Stocks Returns") %>%
+  hc_subtitle(text = "93 Stocks have given positive returns out of which 8 stocks have given more than 75% returns. \n 156 stocks have given negative returns out of which 5 stocks have eroded more than 90% of their stock value")
+
+```
+
+<br>
+
+There have been lot of companies which have got into trouble due to mismanagement and unethical business practices specially in last 18-20 months. For every bad news these stocks are getting punished severely and lot of companies have lot huge market caps. Indian stock market is filled with lot of such companies, as lot of experienced investors say if retail investors get into such companies we are bound to lose the capital. Whether it is today or tomorrow that market will decide but for sure we will be punished badly beyond recovery.
+
+
+<br>
+
+
+```{r}
+
+bottom5 <- smallcap1Year %>%
+           arrange(x1_year) %>%
+  head(5)
+
+hchart(bottom5, "column", hcaes(name, x1_year), color = "#590307") %>%
+  hc_title(text = "Companies with more than 90% of the value erosion") %>%
+  hc_subtitle(text = "No Surprise with the names. More than the kind of business it was the mismanagement of these firms which led to this erosion of wealth")
+
+```
+
+
+When a stock falls by 90% it has to gain by 900% to recover the capital. Even in this period of huge wealth distruction, there have been companies which have created lot of wealth too in small caps. There are stocks which have gained more than 100% as well. 
+
+<br>
+
+
+```{r}
+
+top7 <- smallcap1Year %>%
+           arrange(desc(x1_year)) %>%
+  head(7)
+
+hchart(top7, "column", hcaes(name, x1_year), color = "#590307") %>%
+  hc_title(text = "Companies with more than 70% gains in this period of uncertainity") %>%
+  hc_subtitle(text = "Quality of the Management is one of the most important factor")
+
+```
+
+
+<br>
+<br>
+<br>
+<br>
+
+<div style= "float:right;position: relative; top: -40px;">
+```{r pressure, echo=FALSE}
+
+smallcap1Year$PL <- cut(
+  smallcap1Year$x1_year,
+  breaks = c(-99, 0, 160),
+  labels = c("Total_Loss%", "Total_Gains%"),
+  right  = FALSE
+)
+
+worstisnotover <- smallcap1Year %>%
+  group_by(PL) %>%
+  summarise(Total = sum(x1_year))
+
+hchart(worstisnotover, "column", hcaes(PL, Total), color = "#590307") 
+
+```
+
+</div>
+
+Key insights which gives us the extent of mayhem on small caps in the Indian Market.
+
+* 3000% gains in the stocks which have given positive returns. 
+
+* 4600% loss in the stocks which have given negative returns.
+
+This shows there is a huge damage to the wealth of small cap investors. Investing in small caps is always high risk and people who invest should be fully aware of it. But vast majority of the investors who get into these stocks buy them based on the news and suggestions by analysts or by looking at the daily chart movements. Without understanding the fundamentals of the company and its business if someone is betting then they are bound to lose their money. This has happened 20-30 years back, its happening today and will keep happening in years to come as well.
+
+Small cap companies have huge potential to grow given the size of the company and its growth opportunity but not every management will be well equipped to take advantage of such scenarios. Having good knowledge about the business and the management is very key to taking risks in small caps. It is always advisable to stay away from companies which we dont understand and for which we dont have insights into the quality of the management.
