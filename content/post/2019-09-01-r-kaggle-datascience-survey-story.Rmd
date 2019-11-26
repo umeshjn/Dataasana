@@ -1,0 +1,342 @@
+---
+title: "The World Needs Kaggle"
+author: "Dataasana"
+date: 2019-09-01
+categories: ["R"]
+tags: ["R Markdown", "dataviz", "highcharter", "Map"]
+output:
+  html_document:
+    code_folding: hide
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+## Loading the Packages
+library(tidyverse)
+library(highcharter)
+library(countrycode)
+library(viridis)
+library("viridisLite")
+library(plotly)
+
+## Loading data and data munging.
+survey <- read_csv("../data/multipleChoiceResponses.csv")
+survey <- survey[-1,]
+survey[is.na(survey)] <- ""
+survey[survey$Q3=="United States of America",]$Q3 <- "United States"
+survey[survey$Q3=="Iran, Islamic Republic of...",]$Q3 <- "Iran"
+survey[survey$Q3=="Viet Nam",]$Q3 <- "Vietnam"
+survey[survey$Q3=="United Kingdom of Great Britain and Northern Ireland",]$Q3 <- "United Kingdom"
+
+
+```
+
+
+<br>
+
+Whenever I am on Kaggle one of the most important things I always try to notice is where are my fellow Kagglers from. Not that I want them to be from any specific country but I am always more interested in knowing how many from developing and under developed countries are actively using the BEST DATA SCIENCE LEARNING PLATFORM IN THE WORLD to build their Data Science Skills. I must say that I have really not seen many from different countries specially from regions like South East Asia, Africa and some South American countries.
+
+Based on the assumptions that number of respondents from each country is proportional to number of kagglers, I would like to narrate story of Who are Kagglers (meaning where are they from) and Who else have to be too? Also how Kaggle can play a bigger role here by making the world Data Science Literate. Before moving on to actual story let us see how is the demand for Data Science and what makes Kaggle the best learning platform. 
+
+<br>
+
+<h2> Demand for Data Science Skills... </h2>
+
+We have all heard of <b> "Data Scientist: The Sexiest Job of the 21st Century" from 2012 HBR article.</b> This is what we saw more recently in 2018 [1]::
+
+>  <b>Google's chief economist thinks the world needs more data scientists - QUARTZ</b>
+
+
+Data Science skills is one of the world's fastest growing in-demand skills. The International Data Corporation (IDC) predicts that worldwide revenues for big data and business analytics will reach more than $203 billion in 2020 as more enterprises and governments try to make sense of the data[2]. World over there is explosion of Data and huge demand for people who can help to gather insights from all this data. 
+
+According to data from job website Indeed, data scientist job postings in the USA jumped by 75% from January 2015 to January 2018. The Bureau of Labor Statistics expects that <b> statistician will be the fastest growing non-health related occupation in the 10 years to 2026 in USA.</b>
+
+As per European Commission monitoring tool the demand for Data Workers will increase up to 10.43million at the compounded average rate of 14.1% by 2020. The data industry as a whole comprised approximately of 255,000 data companies in 2016 in the EU. According to the high growth scenario forecast, this figure will increase to 359,050 by 2020 with a compound annual growth rate of 8.9%[3].
+
+NASSCOM (National Association of Software and Services Company - India) predicts that India's big data industry will catch 32% of the worldwide market which is expected to reach 16 billion dollars by 2025 from the present level of $2 billion[4]. For last few decades India has been the "Outsourcing Capital of the World", last few years lot of companies have started to set up their Data Science teams in India and this is led to the explosion of opportunities across the country. 
+
+Linkedin's 2018 Emerging jobs in Singapore reported 17 times growth of Data Skills Jobs between 2013-2017.  Data Scientist is the job that is fastest emerging and most in demand Singapore[5]. Data Scientist is the Top 2nd of emerging jobs in Australia[6]. 
+
+
+Bottom line is Data Analytics and related skills will be huge job creators across the world. Jobs creation is one of the most commonly faced challenges by each and every country. Here is one solution - <b> Make your young population Data Science Champions. </b>
+
+
+<h2> Learning Data Science... </h2>
+
+Knowing that there will be huge growth in demand for the people with Data Science skills is very encouraging. There are various options today one can use to build their Data Analytics Skills. Some of the main options are:
+
+* University Education
+* Bootcamps
+* edX
+* Coursera
+* Udacity
+* DataCamp
+* DataQuest
+* Kaggle
+
+I have completed lots of courses on most of the above platforms but nothing beats Kaggle. I have learnt more on Kaggle than any of them. I am sure most of Kagglers agree to this. 
+
+<h2>Kaggle - The Best Data Science Learning Platform... </h2>
+
+<center><h3>Platform with most time spent on</h3></center>
+
+```{r fig.height=4, fig.width=8, fig.align='center'}
+
+platforms <- survey[survey$Q37!="",] %>% group_by(Q37) %>% summarise(Total = n()) %>% mutate( Percentage = round(Total/sum(Total) * 100, 2))
+
+## Plotting the percentage of which online platform have you spent the most amount of time?  
+plot_ly(platforms, x = ~Percentage, y = ~reorder(Q37, Percentage), type = 'bar', orientation = 'h') %>%
+  layout(xaxis = list(title = "Percentage of Respondents"),
+         yaxis = list(title = "Learning Platforms")) 
+
+```
+
+
+Coursera was launched in 2012 and most of the other options have been around for more than few years now. <b>Kaggle Learn was launched in 2018, it is already in Top 10 and i would expect it to be at Top 1 position by next year.</b>
+
+Why do I think Kaggle is the best data science learning platform ?
+
+* <b>Ready to Use Platform</b> - All you need is a Computer to get started. It cannot be simpler than this.
+* <b>Tons of Datasets</b> - Choose dataset of your interest and start exploring without any restrictions of tools and technologies. There is dataset for every topic of interest.
+* <b>Free courses to learn Data Science the fastest way.</b> This was launched in 2018.
+* <b>Huge library of the best kernels</b> in the world on any topic related Data Analytics and Machine Learning. 
+* <b>Access to best and biggest Data Science Experts Community in the world.</b> Best part is each and every one of them is ready to share their knowledge with the world. 
+* Instant feedback from the community.<b> Every upvote motivates you to learn more and do more. </b>
+* <b>Kaggle platform helps you not just to learn but also to showcase your Data Science skills to the world.</b>
+* And best one ITS ALL FREE of Cost.
+
+I do not know any other platform which offers all these benefits.
+
+<h2> Kagglers are from... </h2>
+
+As I said in the beginning, one thing I am always interested on Kaggle is where are fellow Kagglers from and whom are we missing in our community?  
+
+<br>
+
+```{r fig.height=8, fig.width=10, fig.align='center'}
+
+### creating table for countries specific data
+countries <- survey %>% group_by(Q3) %>% summarise(Total = round(n())) 
+names(countries) <- c("country.code", "total")
+countries$iso3 <- codelist[match(countries$country.code, codelist$country.name.en), "iso3c"]
+
+## World Geo Json for creating the map using highcharter
+data(worldgeojson)
+
+## Creating the map
+highchart() %>% 
+  hc_add_series_map(worldgeojson, countries, value = "total", joinBy = "iso3") %>% 
+  hc_colorAxis(stops = color_stops(10, rev(cividis(10)))) %>% 
+  hc_legend(enabled = TRUE) %>% 
+  hc_add_theme(hc_theme_google()) %>% 
+  hc_mapNavigation(enabled = TRUE) %>%
+  hc_title(text = "United States and India have the highest number of Kagglers") %>%
+  hc_subtitle(text = "Almost the entire African continent is missing") %>%
+  hc_credits(enabled = TRUE, text = "Sources: 2018 Kaggle ML & DS Survey Challenge", style = list(fontSize = "10px")) 
+
+```
+
+United States and India have the highest respondents, which is not surprising. United States is technological capital of the world and first place to have highest growth rate in any technological disruptions. Indian IT industry has 37% share of the global outsourcing industry. Indian IT industry revenue for the fiscal 2018-19 is estimated to be 167 billion dollars[7]. There are millions of Indians working in the Tech Jobs. Generally this has created a lot of awareness among the professionals and students alike in both the countries. 
+
+Closer look at the map tells us that major part of European countries have lot of Kagglers. Most of the European countries have always been technologically very well advanced and economically strong countries. There is more awareness and job opportunities in these countries too. 
+
+One thing we can notice very clearly is there are very few Kagglers from regions like South America, [ASEAN](https://asean.org/), Africa and Middle East. Majority of the Asian Countries except Japan, India and China either have very less or very negligible number. Vast majority of African countries too are missing too. Among South American countries except Brazil most of them have neglible or totally missing out. Many of these are [developing countries or emerging economies](https://www.thebalance.com/what-are-emerging-markets-3305927). 
+
+<br>
+
+<h3> Power of Kaggle is still not reaching the majority... </h3>
+
+```{r fig.height=5, fig.width=9, fig.align='center'}
+
+## Creating table based on countries
+countries <- survey %>% group_by(Q3) %>% summarise(Total = round(n())) %>% mutate( Percentage = round(Total/sum(Total) * 100, 2))
+countries$Q3 <- as.factor(countries$Q3)
+names(countries)[1] <- "Country"
+
+
+## Modifying the name of the continent and separating North and South America
+codelist[is.na(codelist)] <- ""
+codelist[codelist$region %in% c("South America", "Caribbean", "Central America"),]$continent <- "Latin America & Caribbean"
+codelist[codelist$continent == "Americas",]$continent <- "North America"
+
+## Adding Continent attribute to the dataset
+countries$Continent <- codelist[match(countries$Country, codelist$country.name.en), "continent"]
+
+## Summarising based on the Continents
+continents <- countries %>% 
+                  group_by(Continent) %>% 
+                  summarise(ResponsePercentage = sum(Percentage)) %>% 
+                  arrange(desc(ResponsePercentage))
+
+continents[is.na(continents)] <- ""
+continents <- continents[continents$Continent !="",]
+
+## Attribute to hold the Continents share of global population
+continents$GlobalPopulationShare <- c(59.5, 13.3, 4.7, 8.5, 16.8, 0.5)
+
+## Plotting the percentage of responses from each continent
+plot_ly(continents, x = ~ResponsePercentage, y = ~reorder(Continent, ResponsePercentage), type = 'bar', orientation = 'h', name = '% Survey Respondents', marker = list(color = 'rgb(49,130,189)')) %>%
+  add_trace(x = ~GlobalPopulationShare, name = '% Global Population', marker = list(color = 'rgb(204,204,204)')) %>%
+  layout(xaxis = list(title = "Percentage"),
+         yaxis = list(title = ""))
+
+
+```
+
+
+<br>
+
+Above plot clearly shows how Africa and Latin America & Caribbean are missing out. Asia is at the top only because of Japan, India and China. But lot of other countries are missing out from Asia. If we try to group the countries, we might get even more better clarity.
+
+<br>
+
+<h3> Emerging economies and Under-Developed Regions are Missing... </h3>
+
+```{r fig.height=4, fig.width=9, fig.align='center'}
+
+## Adding Region attribute to the dataset
+countries$Region <- codelist[match(countries$Country, codelist$country.name.en), "region"]
+
+## List of brics 
+brics <- c("Brazil", "Russia", "India", "China", "South Africa")
+
+## List of Group of Seven
+G7 <- c("Canada", "United States", "Japan", "Italy", "Germany", "France", "United Kingdom")
+
+## List of ASEAN
+asean <- c("Philippines", "Vietnam", "Laos", "Thailand", "Malaysia", "Singapore", "Indonesia", "Myanmar", "Cambodia", "Brunei")
+
+## List of Countries called Emerging Economies. Have removed BRICS from this group 
+emergingeconomies <- c("Chile", "Colombia", "Czech Republic", "Egypt", "Greece", "Hungary",  "Indonesia", "Korea", "Malaysia", "Mexico", "Morocco", "Qatar", "Peru", "Philippines", "Poland", "Republic of Korea", "South Korea", "Taiwan", "Thailand", "Turkey", "United Arab Emirates", "Argentina", "Hong Kong", "Jordan", "Kuwait", "Saudi Arabia", "Singapore","Vietnam")
+
+## Creating the Group attribute
+countries$Group <- ifelse(countries$Country %in% brics, "BRICS", 
+                          ifelse(countries$Country %in% G7, "G7",
+                                 ifelse(countries$Country %in% emergingeconomies, "Emerging Economies",
+                                              ifelse(countries$Continent %in% "Africa", "Africa without Emerging Economies",                                ifelse(countries$Continent %in% "Europe", "Europe - (G7+Emerging Economies)", "Rest of the World")))))
+
+
+
+groups <- countries %>% 
+            filter(Country != "I do not wish to disclose my location") %>%
+            group_by(Group) %>% 
+              summarise(ResponsePercentage = sum(Percentage)) %>% 
+                arrange(desc(ResponsePercentage))
+
+plot_ly(groups, x = ~ResponsePercentage, y = ~reorder(Group, ResponsePercentage), type = 'bar', orientation = 'h', name = "Groups") %>%
+  layout(xaxis = list(title = "Percentage of Respondents"),
+         yaxis = list(title = ""))
+
+```
+
+<br>
+
+
+G7 and BRICS countries are top most users of Kaggle. G7 is a group of Economic Superpowers and BRICS is a group of emerging powers. 65% of the respondents are from these 12 countries. 
+
+<br>
+
+<h3> Top 5 Countries have 50% of the Respondents... </h3>
+
+
+```{r fig.height=5, fig.width=9, fig.align='center'}
+
+## Extracting the Percentage Respondents for Top 20 countries
+top20 <- countries %>% 
+            filter(!Country %in% c("Other", "I do not wish to disclose my location")) %>% 
+            arrange(desc(Percentage))%>% 
+            head(20) 
+
+names(top20) <- c("Country",  "Total", "Percentage")
+
+## Plotting the bar chart
+plot_ly(top20, x = ~Percentage, y = ~reorder(Country, Percentage), type = 'bar', orientation = 'h') %>%
+  layout(xaxis = list(title = "Percentage of Respondents"),
+         yaxis = list(title = "")) 
+
+```
+
+
+Survey had respondents from 147 countries but 91 of those had less than 50 respondents. Ones with less than 50 were grouped under "Other". If we exclude "Other" and "I do not wish to disclose" we are left with 56 countries out of which::
+
+* Top 5 countries contribute 50% of the total respondents.
+* Top 20 contribute 78% of the total respondents.
+* Rest 36 countries plus ones converted to "Other" contribute remaining percentage of the respondents.
+
+This clearly shows that Kaggle platform is not reaching the majority of the people around the world. Kaggle like platform can do wonders to countries in Africa, South East Asian countries and the South American countries.
+
+<h2> Kaggle can be more bigger and diverse... </h2>
+
+> <b>"We need Data Scientists not just in some countries but in every country on this planet"</b>
+
+Data Scientists are people who can crunch the data, extract insights and present the insights to help in decision making process. As experts say - <b> "THE WORLD NEEDS MORE DATA SCIENTISTS" </b>, I read this as - "We need them not just in some countries but in every country on this planet". Data Analytics is the most powerful tool in the hands of humans today. It can be used not only to make the businesses to do better and grow faster but also make the societies we live in better too. It has potential to solve the problems in every area of human life like agriculture, education, healthcare, governance, etc. 
+
+> <b>"Demand for Data Scientists will grow not only in Major economies but also in Emerging and Under Developed Economies of the World."</b>
+
+According to the EU monitoring tool, in 2016 there was a gap between total demand and supply of data workers of 420,000 unfilled data worker positions in the EU, corresponding to 6.2% of the total demand of the skilled data professionals. By 2020, the EU is forecasted to face a data skills gap corresponding to 769,000 unfilled positions in the baseline scenario and being concentrated in particular in the large Member States (especially Germany and France)[3]. By 2020 the number of Data Science and Analytics job listings is projected to grow by nearly 364,000 listings to approximately 2,720,000 in USA. 
+
+
+India has the highest number of Data Science jobs in the world after USA. There is huge growth in last few years and it is expected to grow at very high rate compared to global peers. Potential of the companies in India to capture the Data Analytics market also contributes greatly to the demand.  
+
+ASEAN region with the fastest growing internet users has huge shortage of talented tech workers. Companies are finding hard to find people with required skills and experience. This region is the third largest in terms population after China and India in Asia. They have huge pool of young people. Demand for data skills is high but supply is very low in ASEAN[8]. For instance, according to Asia-Pacific Economic Cooperation (APEC)[9]::
+
+<b>
+
+* Philippines will need 340,880 Data scientists/Data Analysts by 2022
+* Malaysia will have shortage of 20000 Data scientists/Data Analysts by 2020
+* Singapore will have shortage of 15000 Data scientists/Data Analysts by 2020
+
+</b>
+
+Viet Nam alone will have shortage of 500000 Data Science skilled workers by 2020. As per Cisco estimates 80% of the 54 million work force in Viet Nam is not having the right skills to participate in the digital economy. Indonesian and Thailand firms are also suffering of shortage of talented skilled workers in Data Analytics space[9].
+
+Situation is no different in African countries and South American countries which are also seeing huge growth in number of Tech Jobs. Lot of Indian IT Services giants are expanding their operations in South America to support the operations for their US clients. Also there are lot of US companies opening up shops in South American countries to move their jobs like IT services and support. All these companies will definitely create job opportunities for Data Science and related skills.
+
+Shortage of skilled data science workers is real and is impacting not just developed countries but also emerging or developing countries. Developed economies have the ability to get their work force trained in required technologies. They have everything they neeed like large global corporations who can invest heavily to build required skillsets among its employees, institutions who are capable enough to build required cirriculums for teaching, in most of the cases governments understand the need for training the people in these skills and most importantly they are all economically capable of handling it. 
+
+For the developing and under developed economies digitization is fairly new. Slowly most of these countries are moving towards digitization.They have huge shortage of digitial skills among their work force. They neither have world class educational institutions nor large corporations who can help them to fix Data Science skills shortage. These countries have big challenge ahead of them as well as great opportunity. By making their work force Data Science skilled, they will:
+
+* Make their work force employable in digital economy.
+* Help their companies to be able to innovate and compete with their global peers.
+
+The biggest opportunity for developing and under developed economies is they can be - <b>"Data Science Outsourcing Capital of the World"</b>. This will do what Manufacturing outsourcing did to China and what IT outsoucing did to India. 
+
+> <b>"Kaggle can be that mentor and a friend which these countries need to make their workforce Data Science Skilled"</b>
+
+Developing and under developed countires need someone to help them to train their workforce with required skills. Some countries are getting help, like Singapore is helping ASEAN partners to train their work force. But there is more help needed in meeting the demand and making their workforce Data Science skilled.
+
+Kaggle can help these countries, it is very big opportunity to play a huge role in helping these countries and its people to get skilled in the most important skill of 21st Century. Kaggle which started as Data Science Competitions hosting platform, has developed itself into World's Best Data Science Learning Platform. With this new opportunity Kaggle can be more than what it is today. It can be the solution which the world is looking for.
+
+Few Ways I think Kaggle can do this:
+
+* Be part of initiative like <b>Africa Skills Initiative</b> which is started under the umbrella of World Economic Forum's Global Challenge on Employment, Skills and Human Capital. Main aim of this initiative is to make the African Work force skilled and employable in today's world as well as plan for the future.
+
+* Use the relationship with Google to create <b>Data Science Skilling Program</b> across these countries. Google already has such initiatives targetting specific technologies mostly Android development. 
+
+* <b>Tie up with the Universities in these countries</b>. One of the main problems faced by these countries are there is huge mismatch between what educational institutions are teaching and what is expected by the industries, which means they dont have the right curriculum for teaching Data Science and Analytics. Help them build that curriculum and all they have to do next is use Kaggle.
+
+* <b>Increase marketing efforts in these countries</b>. One way of doing it would be sponsor <b>Kaggle Data Science Meetups</b> in major cities across these regions. 
+
+* <b>Hosting competitions specifically for these countries.</b> I think this should help in building their confidence and also motivate lot of people from these countries to join Kaggle. 
+
+By bringing in more people from different countries on board we are making Data Science community grow bigger and more diverse. In the process we are also helping people get skilled and helping countries solve one of their biggest worries. This will only make the future of these countries and the world better at least in a small way. <b>Skilled human resource is the biggest asset of any country.</b> 
+
+### Reference
+
+1. [1] Google's chief economist thinks the world needs more data scientists -  https://qz.com/1296930/hal-varian-googles-chief-economist-thinks-the-world-needs-more-data-scientists/ 
+2. [2] Predictions for Big Data Analytics Market - https://www.forbes.com/sites/gilpress/2017/01/20/6-predictions-for-the-203-billion-big-data-analytics-market/#507b1dfb2083
+3. [3] European Data Market - https://ec.europa.eu/digital-single-market/en/news/final-results-european-data-market-study-measuring-size-and-trends-eu-data-economy 
+4. [4] Growing Future of Data Science in India -  https://yourstory.com/mystory/2a57249ef9-growing-future-of-data
+5. [5] Linkedin Top Emerging Jobs in Singapore 2018 - https://www.theedgesingapore.com/technology/top-emerging-jobs-singapore-2018-linkedin
+6. [6] Linkedin Top Emerging Jobs in Australia 2018 - https://www.businessinsider.com.au/top-5-jobs-in-australia-2018-8
+7. [7] Indian IT Industry Revenue - https://telecom.economictimes.indiatimes.com/news/indian-it-industry-revenue-to-touch-167-billion-nasscom/66079734
+8. [8] Tech Demand and Shortage in Southeast Asia - https://seasia.co/2018/04/25/the-tech-talent-demand-in-southeast-asian-countries  https://www.hackerearth.com/blog/talent-assessment/talent-shortage-southeast-asia-challenges-recruitment/
+9. [9] Data Science and Analytics Skills Shortage - https://www.apec.org/-/media/APEC/Publications/2017/11/Data-Science-and-Analytics-Skills-Shortage/217_HRD_Data-Science-and-Analytics-Skills-Shortage.pdf
+
+10. The Future of Jobs and Skills in Africa - World Economic Forum Report - http://www3.weforum.org/docs/WEF_EGW_FOJ_Africa.pdf
+11. Human Capital Outlook ASEAN - World Economic Forum - http://www3.weforum.org/docs/WEF_ASEAN_HumanCapitalOutlook.pdf
+12. Lack of Data Talents in ASEAN - https://thediplomat.com/2018/10/aseans-digital-transformation-starts-with-tomorrows-data-talents
+13. African Data Scientists training - https://www.idgconnect.com/idgconnect/analysis-review/1002945/africa-scientists-train
